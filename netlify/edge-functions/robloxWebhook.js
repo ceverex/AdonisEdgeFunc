@@ -7,7 +7,7 @@ export default async function handler(event, context) {
     const requestData = JSON.parse(bodyText);
 
     // Access environment variable using Deno.env
-    const discordWebhookUrl = Deno.env.get('DISCORD_WEBHOOK_URL'); // Netlify.env.get
+    const discordWebhookUrl = Deno.env.get('DISCORD_WEBHOOK_URL');
 
     // Send data to Discord webhook using fetch
     const response = await fetch(discordWebhookUrl, {
@@ -44,3 +44,4 @@ export default async function handler(event, context) {
     };
   }
 }
+
