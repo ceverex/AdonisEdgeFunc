@@ -5,7 +5,7 @@
   "scripts": {
     "build": "esbuild --bundle netlify/edge-functions/robloxWebhook.js --outfile=netlify/functions/robloxWebhook.js"
   },
-  
+
   "devDependencies": {
     "esbuild": "^0.19.11"
   }

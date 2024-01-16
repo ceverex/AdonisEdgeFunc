@@ -1,5 +1,6 @@
 [build]
   publish = "/public"
+  functions = "netlify/functions"
 
 [[edge_functions]]
   path = "/hello"
