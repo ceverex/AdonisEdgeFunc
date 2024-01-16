@@ -1,5 +1,5 @@
 // robloxWebhook.js
-// hello world
+
 export default async function handler(event, context) {
   try {
     // Read the stream and convert it to text
@@ -29,15 +29,19 @@ export default async function handler(event, context) {
       throw new Error("Failed to send data to Discord");
     }
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: "Data sent to Discord successfully" }),
-    };
+    return new Response(JSON.stringify({ message: "Data sent to Discord successfully" }), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   } catch (error) {
     console.error("Error:", error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Internal Server Error" }),
-    };
+    return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+      status: 500,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }
 }
