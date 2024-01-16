@@ -7,7 +7,21 @@ export default async function handler(event, context) {
     const requestData = JSON.parse(bodyText);
 
     // Access environment variable using import.meta.env
-    const discordWebhookUrl = Netlify.env.get("DISCORD_WEBHOOK_URL"); // const discordWebhookUrl = import.meta.env.DISCORD_WEBHOOK_URL;
+    const discordWebhookUrl = Netlify.env.get("DISCORD_WEBHOOK_URL");
+
+    // Prepare the embed object
+    const embed = {
+      type: "rich",
+      title: "",
+      color: 9773774,
+      fields: [
+        { name: "User", value: `[${requestData.username}](${requestData.profileLink})`, inline: false },
+        { name: "Admin Level", value: requestData.adminLevel, inline: true },
+        { name: "Command", value: requestData.command, inline: false },
+        { name: "Game", value: `[${requestData.gameName}](${requestData.gameLink})`, inline: false },
+      ],
+      description: "",
+    };
 
     // Send data to Discord webhook using fetch
     const response = await fetch(discordWebhookUrl, {
@@ -16,7 +30,9 @@ export default async function handler(event, context) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        content: `Roblox Event: ${JSON.stringify(requestData)}`,
+        username: "Ceverex Logging System",
+        avatar_url: requestData.avatarUrl,
+        embeds: [embed],
       }),
     });
 
