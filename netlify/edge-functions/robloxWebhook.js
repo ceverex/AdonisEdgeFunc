@@ -8,8 +8,8 @@ export default async function handler(event, context) {
     // const axios = require('axios'); // no longer a direct import
 
     // Read the stream and convert it to text
-    const bodyText = await Deno.readAll(event.body);
-    const requestData = JSON.parse(new TextDecoder().decode(bodyText));
+    const bodyText = await event.text();
+    const requestData = JSON.parse(bodyText);
 
     // Your Discord webhook URL
     const discordWebhookUrl = process.env.DISCORD_WEBHOOK_URL;
