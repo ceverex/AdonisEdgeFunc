@@ -9,6 +9,10 @@
   path = "/hello-template"
   function = "transform-hello-template"
 
+[[edge_functions]]
+  path = "/robloxWebhook"
+  function = "robloxWebhook"
+
 
 
 

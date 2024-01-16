@@ -5,12 +5,7 @@
   "scripts": {
     "build": "esbuild --bundle netlify/edge-functions/robloxWebhook.js --outfile=netlify/functions/robloxWebhook.js"
   },
-  "author": "whitep4nth3r",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/whitep4nth3r/getting-started-with-netlify-edge-functions.git"
-  },
+  
   "devDependencies": {
     "esbuild": "^0.19.11"
   }
