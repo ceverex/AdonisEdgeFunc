@@ -9,18 +9,11 @@ export default async function handler(event, context) {
     // Access environment variable using import.meta.env
     const discordWebhookUrl = Netlify.env.get("DISCORD_WEBHOOK_URL");
 
-    // Prepare the embed object
-    const embed = {
-      type: "rich",
-      title: "",
-      color: 9773774,
-      fields: [
-        { name: "User", value: `[${requestData.username}](${requestData.profileLink})`, inline: false },
-        { name: "Admin Level", value: requestData.adminLevel, inline: true },
-        { name: "Command", value: requestData.command, inline: false },
-        { name: "Game", value: `[${requestData.gameName}](${requestData.gameLink})`, inline: false },
-      ],
-      description: "",
+    // Update payload structure for embed
+    const payload = {
+      username: "Ceverex Logging System",
+      avatar_url: "https://cdn.discordapp.com/attachments/1143722298268979210/1168756865648300123/ceverex2.png?ex=6552eca7&is=654077a7&hm=beef911b4835fdc3e821192a8425febac108612e9bb97e727d3d3426ac22d184&",
+      embeds: requestData.embeds,  // assuming embeds are sent directly
     };
 
     // Send data to Discord webhook using fetch
@@ -29,11 +22,7 @@ export default async function handler(event, context) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        username: "Ceverex Logging System",
-        avatar_url: requestData.avatarUrl,
-        embeds: [embed],
-      }),
+      body: JSON.stringify(payload),
     });
 
     // Log the raw response body
