@@ -1,20 +1,27 @@
 // robloxWebhook.js
 
-import "https://cdn.skypack.dev/axios";
-
 export default async function handler(event, context) {
   try {
-    const axios = window.axios; // Use window.axios since axios is loaded globally
+    // Read the stream and convert it to text
+    const bodyText = await event.text();
+    const requestData = JSON.parse(bodyText);
 
-    // ... (your existing code)
+    // Access environment variable using import.meta.env
+    const discordWebhookUrl = import.meta.env.DISCORD_WEBHOOK_URL;
 
-    const response = await axios.post(discordWebhookUrl, requestData);
+    // Send data to Discord webhook using fetch
+    const response = await fetch(discordWebhookUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content: `Roblox Event: ${JSON.stringify(requestData)}`,
+      }),
+    });
 
     // Log the raw response body
-    console.log("Response Body:", response.data);
-
-    // Attempt to parse the response body as JSON
-    const responseBody = JSON.parse(response.data);
+    console.log("Response Body:", await response.text());
 
     return {
       statusCode: 200,
