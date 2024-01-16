@@ -8,7 +8,19 @@ export default async function handler(event, context) {
     // const axios = require('axios'); // no longer a direct import
 
     // Extract data from the request (customize this based on Roblox payload structure)
-    const requestData = JSON.parse(event.body);
+    console.log('Event Body:', event.body);
+    
+    
+    let requestData;
+    try {
+      requestData = JSON.parse(event.body);
+    } catch (jsonError) {
+      console.error('Error parsing JSON:', jsonError);
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Invalid JSON payload' }),
+      };
+    }
 
     // Your Discord webhook URL
     const discordWebhookUrl = process.env.DISCORD_WEBHOOK_URL;
