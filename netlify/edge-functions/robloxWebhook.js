@@ -1,9 +1,10 @@
 // robloxWebhook.js
 
-import "https://cdn.skypack.dev/axios";
-
 export default async function handler(event, context) {
   try {
+    // Import Axios directly within the function
+    const axios = (await import("https://cdn.skypack.dev/axios")).default;
+
     // Read the stream and convert it to text
     const bodyText = await event.text();
     const requestData = JSON.parse(bodyText);
