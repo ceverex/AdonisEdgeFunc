@@ -7,7 +7,7 @@ export default async function handler(event, context) {
     const requestData = JSON.parse(bodyText);
 
     // Access environment variable using Deno.env
-    const discordWebhookUrl = Netlify.env.get("DISCORD_WEBHOOK_URL");
+    const discordWebhookUrl = Netlify.env.get('DISCORD_WEBHOOK_URL');
 
     // Send data to Discord webhook using fetch
     const response = await fetch(discordWebhookUrl, {
@@ -20,9 +20,12 @@ export default async function handler(event, context) {
       }),
     });
 
+    // Ensure the response is a valid object
+    const responseBody = response ? await response.json() : {};
+
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Data sent to Discord successfully", response }),
+      body: JSON.stringify({ message: "Data sent to Discord successfully", responseBody }),
     };
   } catch (error) {
     console.error("Error:", error);
@@ -32,3 +35,4 @@ export default async function handler(event, context) {
     };
   }
 }
+
