@@ -23,6 +23,12 @@ export default async function handler(event, context) {
     // Log the raw response body
     console.log("Response Body:", await response.text());
 
+    // Check if the response status is okay
+    if (!response.ok) {
+      console.error("Discord Webhook Error:", response.statusText);
+      throw new Error("Failed to send data to Discord");
+    }
+
     return {
       statusCode: 200,
       body: JSON.stringify({ message: "Data sent to Discord successfully" }),
