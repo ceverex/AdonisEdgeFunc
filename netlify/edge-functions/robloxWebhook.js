@@ -9,7 +9,7 @@ export default async function handler(event, context) {
     const requestData = JSON.parse(bodyText);
 
     // Access environment variable using import.meta.env
-    const discordWebhookUrl = import.meta.env.DISCORD_WEBHOOK_URL;
+    const discordWebhookUrl = Netlify.env.get("DISCORD_WEBHOOK_URL");
 
     // Send data to Discord webhook using Axios
     const response = await axios.post(discordWebhookUrl, {
