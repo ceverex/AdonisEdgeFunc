@@ -1,40 +1,24 @@
 // robloxWebhook.js
 
+import "https://cdn.skypack.dev/axios";
+
 export default async function handler(event, context) {
   try {
-    // Read the stream and convert it to text
-    const bodyText = await event.text();
-    const requestData = JSON.parse(bodyText);
+    const axios = window.axios; // Use window.axios since axios is loaded globally
 
-    // Access environment variable using Deno.env
-    const discordWebhookUrl = Deno.env.get('DISCORD_WEBHOOK_URL');
+    // ... (your existing code)
 
-    // Send data to Discord webhook using fetch
-    const response = await fetch(discordWebhookUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        content: `Roblox Event: ${JSON.stringify(requestData)}`,
-      }),
-    });
+    const response = await axios.post(discordWebhookUrl, requestData);
 
-    // Ensure the response is a valid object
-    let responseBody;
-    try {
-      const text = await response.text();
-      responseBody = JSON.parse(text);
-    } catch (jsonError) {
-      console.error('Error parsing JSON response:', jsonError);
-      responseBody = { error: 'Error parsing JSON response' };
-    }
+    // Log the raw response body
+    console.log("Response Body:", response.data);
 
-    console.log('Response Body:', responseBody);
+    // Attempt to parse the response body as JSON
+    const responseBody = JSON.parse(response.data);
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Data sent to Discord successfully", responseBody }),
+      body: JSON.stringify({ message: "Data sent to Discord successfully" }),
     };
   } catch (error) {
     console.error("Error:", error);
@@ -44,4 +28,3 @@ export default async function handler(event, context) {
     };
   }
 }
-
