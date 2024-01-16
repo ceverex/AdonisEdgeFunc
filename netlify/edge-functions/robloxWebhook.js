@@ -1,8 +1,8 @@
 // robloxWebhook.js
 
-const axios = require('axios');
+import axios from 'axios';
 
-exports.handler = async function (event, context) {
+export default async function handler(event, context) {
   try {
     // Extract data from the request (customize this based on Roblox payload structure)
     const requestData = JSON.parse(event.body);
@@ -26,4 +26,4 @@ exports.handler = async function (event, context) {
       body: JSON.stringify({ error: 'Internal Server Error' }),
     };
   }
-};
+}
