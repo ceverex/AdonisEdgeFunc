@@ -1,9 +1,10 @@
 // robloxWebhook.js
 
-import axios from 'axios';
+import 'https://cdn.skypack.dev/axios';
 
 export default async function handler(event, context) {
   try {
+    const axios = window.axios; // Use window.axios since axios is loaded globally
     // const axios = require('axios'); // no longer a direct import
 
     // Extract data from the request (customize this based on Roblox payload structure)
