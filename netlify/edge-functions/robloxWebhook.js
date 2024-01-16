@@ -2,19 +2,22 @@
 
 export default async function handler(event, context) {
   try {
-    // Import Axios directly within the function
-    const axios = (await import("https://cdn.skypack.dev/axios")).default;
-
     // Read the stream and convert it to text
     const bodyText = await event.text();
     const requestData = JSON.parse(bodyText);
 
-    // Access environment variable using import.meta.env
+    // Access environment variable using Deno.env
     const discordWebhookUrl = Netlify.env.get("DISCORD_WEBHOOK_URL");
 
-    // Send data to Discord webhook using Axios
-    const response = await axios.post(discordWebhookUrl, {
-      content: `Roblox Event: ${JSON.stringify(requestData)}`,
+    // Send data to Discord webhook using fetch
+    const response = await fetch(discordWebhookUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        content: `Roblox Event: ${JSON.stringify(requestData)}`,
+      }),
     });
 
     return {
