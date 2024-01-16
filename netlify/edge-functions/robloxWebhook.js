@@ -1,26 +1,15 @@
 // robloxWebhook.js
 
-import 'https://cdn.skypack.dev/axios';
+import "https://cdn.skypack.dev/axios";
 
 export default async function handler(event, context) {
   try {
     const axios = window.axios; // Use window.axios since axios is loaded globally
     // const axios = require('axios'); // no longer a direct import
 
-    // Extract data from the request (customize this based on Roblox payload structure)
-    console.log('Event Body:', event.body);
-    
-    
-    let requestData;
-    try {
-      requestData = JSON.parse(event.body);
-    } catch (jsonError) {
-      console.error('Error parsing JSON:', jsonError);
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: 'Invalid JSON payload' }),
-      };
-    }
+    // Read the stream and convert it to text
+    const bodyText = await Deno.readAll(event.body);
+    const requestData = JSON.parse(new TextDecoder().decode(bodyText));
 
     // Your Discord webhook URL
     const discordWebhookUrl = process.env.DISCORD_WEBHOOK_URL;
@@ -32,13 +21,13 @@ export default async function handler(event, context) {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'Data sent to Discord successfully' }),
+      body: JSON.stringify({ message: "Data sent to Discord successfully" }),
     };
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Internal Server Error' }),
+      body: JSON.stringify({ error: "Internal Server Error" }),
     };
   }
 }
