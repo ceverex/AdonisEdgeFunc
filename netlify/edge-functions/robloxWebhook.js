@@ -11,8 +11,8 @@ export default async function handler(event, context) {
     const bodyText = await event.text();
     const requestData = JSON.parse(bodyText);
 
-    // Your Discord webhook URL
-    const discordWebhookUrl = process.env.DISCORD_WEBHOOK_URL;
+    // Access environment variable using Deno.env
+    const discordWebhookUrl = Deno.env.get('DISCORD_WEBHOOK_URL');
 
     // Send data to Discord webhook
     await axios.post(discordWebhookUrl, {
