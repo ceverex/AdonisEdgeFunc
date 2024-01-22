@@ -1,4 +1,4 @@
-// robloxWebhook.js
+// record-command.js
 
 export default async function handler(event, context) {
   try {
