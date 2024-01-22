@@ -11,8 +11,8 @@
   function = "transform-hello-template"
 
 [[edge_functions]]
-  path = "/robloxWebhook"
-  function = "robloxWebhook"
+  path = "/record-command"
+  function = "record-command"
 
 
 

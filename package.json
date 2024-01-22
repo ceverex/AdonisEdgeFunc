@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Code examples to support the Getting Started with Netlify Edge Functions tutorial.",
   "scripts": {
-    "build": "esbuild --bundle netlify/edge-functions/robloxWebhook.js --outfile=netlify/functions/robloxWebhook.js"
+    "build": "esbuild --bundle netlify/edge-functions/record-command.js --outfile=netlify/functions/record-command.js"
   },
 
   "devDependencies": {
