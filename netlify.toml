@@ -14,6 +14,10 @@
   path = "/record-command"
   function = "record-command"
 
+[[edge_functions]]
+  path = "/log-arrest-evasion"
+  function = "log-arrest-evasion"
+
 
 
 
