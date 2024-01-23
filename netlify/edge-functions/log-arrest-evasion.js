@@ -7,7 +7,7 @@ export default async function handler(event, context) {
     const requestData = JSON.parse(bodyText);
 
     // Access environment variable using import.meta.env
-    const discordWebhookUrl = Netlify.env.get("DISCORD_WEBHOOK_URL");
+    const discordWebhookUrl = Netlify.env.get("DISCORD_LTAA_WEBHOOK");
 
     // Update payload structure for embed
     const payload = {
